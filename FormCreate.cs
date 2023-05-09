@@ -168,12 +168,13 @@ namespace TimerWinForms
 
             TimeSpan span = end - start;
             var minutes = (int)span.TotalMinutes;
-
+            if(end > DateTime.Now)
+                end = DateTime.Now;
             using (TimerDbContext db = new TimerDbContext())
             {
                 var time1 = new Time
                 {
-                    DateTimeEnd = DateTime.Now <= end ? end : DateTime.Now,
+                    DateTimeEnd = end,
                     MinutesTime = minutes == 0 ? 1 : minutes,
                     Description = descriptionTextBox.Text
                 };
