@@ -18,7 +18,7 @@ namespace TimerWinForms
                     var time1 = new Time
                     {
                         DateTimeEnd = Convert.ToDateTime(endTime.Text),
-                        MinutesTime = minutes==0?1:minutes,
+                        MinutesTime = minutes == 0 ? 1 : minutes,
                         Description = descriptionTextBox.Text
                     };
 
@@ -26,9 +26,8 @@ namespace TimerWinForms
                     db.SaveChanges();
                     MessageBox.Show($"{time1.MinutesTime} minutes was added to DB!", "Successfully");
                 }
-                resetAll_Click(sender, e);
             }
-            catch (System.FormatException )
+            catch (System.FormatException)
             {
                 MessageBox.Show("Please, track your time or use button 'CREATE'", "ERROR");
             }
@@ -43,10 +42,22 @@ namespace TimerWinForms
 
         private void endButton_Click(object sender, EventArgs e)
         {
-            if(startTime.Text != "--:--:--")
+            if (startTime.Text != "--:--:--")
             {
                 endTime.Text = DateTime.Now.ToString("T");
             }
+        }
+
+        private void visualize_Click(object sender, EventArgs e)
+        {
+            Form2 form2 = new Form2();
+            form2.Show();
+        }
+
+        private void create_Click(object sender, EventArgs e)
+        {
+            FormCreate frmCreate = new FormCreate();
+            frmCreate.Show();
         }
 
     }

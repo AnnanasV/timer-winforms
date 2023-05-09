@@ -44,6 +44,7 @@
             groupEnd = new GroupBox();
             groupDescription = new GroupBox();
             groupAll = new GroupBox();
+            createButton = new Button();
             groupStart.SuspendLayout();
             groupEnd.SuspendLayout();
             groupDescription.SuspendLayout();
@@ -57,11 +58,11 @@
             data.Font = new Font("Yu Gothic", 16F, FontStyle.Bold, GraphicsUnit.Point);
             data.Location = new Point(310, 9);
             data.Name = "data";
-            data.Size = new Size(109, 35);
+            data.Size = new Size(245, 35);
             data.TabIndex = 0;
             data.Text = "Today: " + DateTime.Now.ToString("d");
             data.TextAlign = ContentAlignment.MiddleCenter;
-            data.Click += (s, e) => { data.Text = "Today: " + DateTime.Now.ToString("d"); };
+            data.Click += (s, e) => {  data.Text = "Today: " + DateTime.Now.ToString("d"); };
             // 
             // startButton
             // 
@@ -99,6 +100,7 @@
             endButton.Size = new Size(230, 55);
             endButton.TabIndex = 3;
             endButton.Text = "END";
+            endButton.UseVisualStyleBackColor = false;
             endButton.Click += endButton_Click;
             // 
             // endTime
@@ -151,6 +153,7 @@
             resetAll.Size = new Size(230, 45);
             resetAll.TabIndex = 7;
             resetAll.Text = "RESET ALL";
+            resetAll.UseVisualStyleBackColor = false;
             resetAll.Click += resetAll_Click;
             // 
             // addTime
@@ -159,13 +162,14 @@
             addTime.BackColor = Color.LightGreen;
             addTime.Cursor = Cursors.Hand;
             addTime.Font = new Font("Yu Gothic", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            addTime.Location = new Point(425, 420);
+            addTime.Location = new Point(535, 420);
             addTime.Name = "addTime";
             addTime.Size = new Size(230, 55);
             addTime.TabIndex = 8;
             addTime.Text = "ADD TIME";
             addTime.UseVisualStyleBackColor = false;
             addTime.Click += addTime_Click;
+            addTime.Click += resetAll_Click;
             // 
             // visualize
             // 
@@ -173,12 +177,13 @@
             visualize.BackColor = Color.LightGreen;
             visualize.Cursor = Cursors.Hand;
             visualize.Font = new Font("Yu Gothic", 14F, FontStyle.Regular, GraphicsUnit.Point);
-            visualize.Location = new Point(140, 420);
+            visualize.Location = new Point(37, 420);
             visualize.Name = "visualize";
             visualize.Size = new Size(230, 55);
             visualize.TabIndex = 9;
             visualize.Text = "VISUALIZE";
             visualize.UseVisualStyleBackColor = false;
+            visualize.Click += visualize_Click;
             // 
             // descriptionTextBox
             // 
@@ -250,12 +255,26 @@
             groupAll.TabIndex = 15;
             groupAll.TabStop = false;
             // 
+            // createButton
+            // 
+            createButton.Anchor = AnchorStyles.Bottom;
+            createButton.BackColor = Color.LightGreen;
+            createButton.Cursor = Cursors.Hand;
+            createButton.Font = new Font("Yu Gothic", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            createButton.Location = new Point(288, 420);
+            createButton.Name = "createButton";
+            createButton.Size = new Size(230, 55);
+            createButton.TabIndex = 16;
+            createButton.Text = "CREATE";
+            createButton.Click += create_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightSlateGray;
             ClientSize = new Size(822, 503);
+            Controls.Add(createButton);
             Controls.Add(groupAll);
             Controls.Add(visualize);
             Controls.Add(addTime);
@@ -290,5 +309,6 @@
         private GroupBox groupEnd;
         private GroupBox groupDescription;
         private GroupBox groupAll;
+        private Button createButton;
     }
 }
