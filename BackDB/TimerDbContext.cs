@@ -8,6 +8,7 @@ namespace TimerWinForms
         {
         }
 
+        public DbSet<User> Users { get; set; }
         public DbSet<Time> Times { get; set; }
 
     }

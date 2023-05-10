@@ -1,3 +1,5 @@
+using Microsoft.VisualBasic.ApplicationServices;
+
 namespace TimerWinForms
 {
     public partial class Form1 : Form
@@ -6,6 +8,130 @@ namespace TimerWinForms
         {
             InitializeComponent();
         }
+
+        public int UserId;
+
+        #region Register methods
+
+        private void registerButton_Click(object sender, EventArgs e)
+        {
+            errorLabel.Text = "";
+            if (LengthIsOK(registerNameTextBox, registerPassTextBox))
+            {
+                using (TimerDbContext db = new TimerDbContext())
+                {
+                    if (db.Users.Any(u => u.UserName == registerNameTextBox.Text))
+                    {
+                        errorLabel.Text = "\nUser with this name is already registered!";
+                        return;
+                    }
+                    else
+                    {
+                        User user = new User
+                        {
+                            UserName = registerNameTextBox.Text,
+                            Password = registerPassTextBox.Text
+                        };
+
+                        UserId = user.Id;
+                        db.Users.Add(user);
+                        db.SaveChanges();
+                    }
+                } //dispose
+
+                DeleteRegisterObjects();
+                AddTimerObjects();
+                Text = "Timer";
+            }
+        }
+
+        private void logInButton_Click(object sender, EventArgs e)
+        {
+            errorLabel.Text = "";
+            if (LengthIsOK(logInNameTextBox, logInPassTextBox))
+            {
+                using (TimerDbContext db = new TimerDbContext())
+                {
+                    var users = db.Users.Where(u => u.UserName == logInNameTextBox.Text && u.Password == logInPassTextBox.Text).ToList();
+                    if (users.Count == 0)
+                    {
+                        errorLabel.Text = "\nUser with this name is not registered!";
+                        return;
+                    }
+                    UserId = users[0].Id;
+                }
+                DeleteRegisterObjects();
+                AddTimerObjects();
+                Text = "Timer";
+            }
+        }
+
+        private void DeleteRegisterObjects()
+        {
+            Controls.Remove(errorLabel);
+            Controls.Remove(logInNameTextBox);
+            Controls.Remove(logInPassTextBox);
+            Controls.Remove(registerNameTextBox);
+            Controls.Remove(registerPassTextBox);
+            Controls.Remove(registerButton);
+            Controls.Remove(logInButton);
+            Controls.Remove(registrationLabel);
+            Controls.Remove(nameLabel);
+            Controls.Remove(passLabel);
+        }
+        private void AddTimerObjects()
+        {
+            Controls.Add(createButton);
+            Controls.Add(groupAll);
+            Controls.Add(visualize);
+            Controls.Add(addTime);
+            Controls.Add(data);
+        }
+
+        private bool LengthIsOK(TextBox name, TextBox pass)
+        {
+            if (pass.Text.Length < 6 || name.Text.Length < 3)
+            {
+                if (errorLabel.Text.Length < 10)
+                    errorLabel.Text = "Password must be longer than 6 characters!\nUsername must be longer than 3 characters!";
+                return false;
+            }
+            return true;
+        }
+
+        private void registerPassTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                registerButton_Click(sender, e);
+            }
+        }
+
+        private void registerNameTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                registerButton_Click(sender, e);
+            }
+        }
+
+        private void logInNameTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                logInButton_Click(sender, e);
+            }
+        }
+
+        private void logInPassTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                logInButton_Click(sender, e);
+            }
+        }
+
+        #endregion
 
         private void addTime_Click(object sender, EventArgs e)
         {

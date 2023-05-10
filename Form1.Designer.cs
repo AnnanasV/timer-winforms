@@ -28,6 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            #region Create variables
+            registerButton = new Button();
+            logInButton = new Button();
+            registerNameTextBox = new TextBox();
+            errorLabel = new Label();
+            logInPassTextBox = new TextBox();
+            registerPassTextBox = new TextBox();
+            logInNameTextBox = new TextBox();
+            nameLabel = new Label();
+            passLabel = new Label();
+            registrationLabel = new Label();
+            #endregion
+
             data = new Label();
             startButton = new Button();
             startTime = new Label();
@@ -50,6 +63,121 @@
             groupDescription.SuspendLayout();
             groupAll.SuspendLayout();
             SuspendLayout();
+
+            #region Register Designer
+
+            // 
+            // registerButton
+            // 
+            registerButton.Anchor = AnchorStyles.None;
+            registerButton.BackColor = Color.LightBlue;
+            registerButton.Font = new Font("Yu Gothic", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            registerButton.Location = new Point(64, 298);
+            registerButton.Name = "registerButton";
+            registerButton.Size = new Size(266, 50);
+            registerButton.TabIndex = 0;
+            registerButton.Text = "REGISTER";
+            registerButton.UseVisualStyleBackColor = false;
+            registerButton.Click += registerButton_Click;
+            // 
+            // logInButton
+            // 
+            logInButton.Anchor = AnchorStyles.None;
+            logInButton.BackColor = Color.LightBlue;
+            logInButton.Font = new Font("Yu Gothic", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            logInButton.Location = new Point(498, 298);
+            logInButton.Name = "logInButton";
+            logInButton.Size = new Size(266, 50);
+            logInButton.TabIndex = 1;
+            logInButton.Text = "LOG IN";
+            logInButton.UseVisualStyleBackColor = false;
+            logInButton.Click += logInButton_Click;
+            // 
+            // registerNameTextBox
+            // 
+            registerNameTextBox.Anchor = AnchorStyles.None;
+            registerNameTextBox.Location = new Point(64, 176);
+            registerNameTextBox.Name = "registerNameTextBox";
+            registerNameTextBox.Size = new Size(266, 27);
+            registerNameTextBox.TabIndex = 2;
+            registerNameTextBox.KeyDown += registerNameTextBox_KeyDown;
+            // 
+            // errorLabel
+            // 
+            errorLabel.Anchor = AnchorStyles.None;
+            errorLabel.AutoSize = true;
+            errorLabel.ForeColor = Color.Maroon;
+            errorLabel.Location = new Point(64, 379);
+            errorLabel.Name = "errorLabel";
+            errorLabel.Size = new Size(0, 20);
+            errorLabel.TabIndex = 3;
+            // 
+            // logInPassTextBox
+            // 
+            logInPassTextBox.Anchor = AnchorStyles.None;
+            logInPassTextBox.Location = new Point(498, 237);
+            logInPassTextBox.Name = "logInPassTextBox";
+            logInPassTextBox.PasswordChar = '*';
+            logInPassTextBox.Size = new Size(266, 27);
+            logInPassTextBox.TabIndex = 4;
+            logInPassTextBox.KeyDown += logInPassTextBox_KeyDown;
+            // 
+            // registerPassTextBox
+            // 
+            registerPassTextBox.Anchor = AnchorStyles.None;
+            registerPassTextBox.Location = new Point(64, 237);
+            registerPassTextBox.Name = "registerPassTextBox";
+            registerPassTextBox.PasswordChar = '*';
+            registerPassTextBox.Size = new Size(266, 27);
+            registerPassTextBox.TabIndex = 5;
+            registerPassTextBox.KeyDown += registerPassTextBox_KeyDown;
+            // 
+            // logInNameTextBox
+            // 
+            logInNameTextBox.Anchor = AnchorStyles.None;
+            logInNameTextBox.Location = new Point(498, 176);
+            logInNameTextBox.Name = "logInNameTextBox";
+            logInNameTextBox.Size = new Size(266, 27);
+            logInNameTextBox.TabIndex = 6;
+            logInNameTextBox.KeyDown += logInNameTextBox_KeyDown;
+            // 
+            // nameLabel
+            // 
+            nameLabel.Anchor = AnchorStyles.None;
+            nameLabel.AutoSize = true;
+            nameLabel.Font = new Font("Yu Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            nameLabel.Location = new Point(362, 176);
+            nameLabel.Name = "nameLabel";
+            nameLabel.Size = new Size(109, 26);
+            nameLabel.TabIndex = 7;
+            nameLabel.Text = "UserName";
+            // 
+            // passLabel
+            // 
+            passLabel.Anchor = AnchorStyles.None;
+            passLabel.AutoSize = true;
+            passLabel.Font = new Font("Yu Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            passLabel.Location = new Point(362, 236);
+            passLabel.Name = "passLabel";
+            passLabel.Size = new Size(102, 26);
+            passLabel.TabIndex = 8;
+            passLabel.Text = "Password";
+            // 
+            // registrationLabel
+            // 
+            registrationLabel.Anchor = AnchorStyles.Top;
+            registrationLabel.AutoSize = true;
+            registrationLabel.Font = new Font("Yu Gothic", 22.2F, FontStyle.Bold, GraphicsUnit.Point);
+            registrationLabel.Location = new Point(266, 33);
+            registrationLabel.Name = "registrationLabel";
+            registrationLabel.Size = new Size(301, 48);
+            registrationLabel.TabIndex = 9;
+            registrationLabel.Text = "REGISTRATION";
+            registrationLabel.TextAlign = ContentAlignment.MiddleCenter;
+
+            #endregion
+
+            
             // 
             // data
             // 
@@ -274,14 +402,19 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightSlateGray;
             ClientSize = new Size(822, 503);
-            Controls.Add(createButton);
-            Controls.Add(groupAll);
-            Controls.Add(visualize);
-            Controls.Add(addTime);
-            Controls.Add(data);
             MinimumSize = new Size(840, 550);
+            Controls.Add(registrationLabel);
+            Controls.Add(passLabel);
+            Controls.Add(nameLabel);
+            Controls.Add(logInNameTextBox);
+            Controls.Add(registerPassTextBox);
+            Controls.Add(logInPassTextBox);
+            Controls.Add(errorLabel);
+            Controls.Add(registerNameTextBox);
+            Controls.Add(logInButton);
+            Controls.Add(registerButton);
             Name = "Form1";
-            Text = "Timer";
+            Text = "Register";
             groupStart.ResumeLayout(false);
             groupEnd.ResumeLayout(false);
             groupDescription.ResumeLayout(false);
@@ -292,6 +425,17 @@
         }
 
         #endregion
+
+        private Button registerButton;
+        private Button logInButton;
+        private TextBox registerNameTextBox;
+        private TextBox logInPassTextBox;
+        private TextBox registerPassTextBox;
+        private TextBox logInNameTextBox;
+        private Label nameLabel;
+        private Label passLabel;
+        private Label registrationLabel;
+        private Label errorLabel;
 
         private Label data;
         private Button startButton;
