@@ -65,7 +65,6 @@
             SuspendLayout();
 
             #region Register Designer
-
             // 
             // registerButton
             // 
@@ -168,15 +167,14 @@
             registrationLabel.Anchor = AnchorStyles.Top;
             registrationLabel.AutoSize = true;
             registrationLabel.Font = new Font("Yu Gothic", 22.2F, FontStyle.Bold, GraphicsUnit.Point);
-            registrationLabel.Location = new Point(266, 33);
+            registrationLabel.Location = new Point(200, 33);
             registrationLabel.Name = "registrationLabel";
             registrationLabel.Size = new Size(301, 48);
             registrationLabel.TabIndex = 9;
-            registrationLabel.Text = "REGISTRATION";
+            registrationLabel.Text = "REGISTRATION / LOG IN";
             registrationLabel.TextAlign = ContentAlignment.MiddleCenter;
 
             #endregion
-
             
             // 
             // data

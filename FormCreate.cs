@@ -10,8 +10,10 @@ namespace TimerWinForms
 {
     internal class FormCreate : Form
     {
-        public FormCreate()
+        private int userId;
+        public FormCreate(int userId)
         {
+            this.userId = userId;
             InitializeComponent();
         }
 
@@ -60,7 +62,7 @@ namespace TimerWinForms
             timeStartPicker.ShowUpDown = true;
             timeStartPicker.Size = new Size(315, 45);
             timeStartPicker.TabIndex = 4;
-            timeStartPicker.Value = new DateTime(2023, 5, 9, 18, 23, 17, 433);
+            timeStartPicker.Value = DateTime.Now;
             // 
             // datePicker
             // 
@@ -71,7 +73,7 @@ namespace TimerWinForms
             datePicker.Name = "datePicker";
             datePicker.Size = new Size(315, 44);
             datePicker.TabIndex = 5;
-            datePicker.Value = new DateTime(2023, 5, 9, 18, 23, 17, 433);
+            datePicker.Value = DateTime.Now;
             // 
             // timeEndPicker
             // 
@@ -83,7 +85,7 @@ namespace TimerWinForms
             timeEndPicker.ShowUpDown = true;
             timeEndPicker.Size = new Size(315, 45);
             timeEndPicker.TabIndex = 7;
-            timeEndPicker.Value = new DateTime(2023, 5, 9, 18, 23, 17, 433);
+            timeEndPicker.Value = DateTime.Now;
             // 
             // timeEndLabel
             // 
@@ -163,8 +165,26 @@ namespace TimerWinForms
 
         private void addTime_Click(object sender, EventArgs e)
         {
-            DateTime start = new DateTime(datePicker.Value.Year, datePicker.Value.Month, datePicker.Value.Day, timeStartPicker.Value.Hour, timeStartPicker.Value.Minute, timeStartPicker.Value.Second);
-            DateTime end = new DateTime(datePicker.Value.Year, datePicker.Value.Month, datePicker.Value.Day, timeEndPicker.Value.Hour, timeEndPicker.Value.Minute, timeEndPicker.Value.Second);
+            var date = datePicker.Value;
+            var startTime = timeStartPicker.Value;
+            var endTime = timeEndPicker.Value;
+            DateTime start = new DateTime(date.Year, date.Month, date.Day, startTime.Hour, startTime.Minute, startTime.Second);
+            DateTime end = new DateTime(date.Year, date.Month, date.Day, endTime.Hour, endTime.Minute, endTime.Second);
+
+            if(end < start)
+            {
+                if (MessageBox.Show("End time is lower than start time. Do you want to switch it? (yes) or postpone it to the next day (no) ?", "Time error", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                { // if yes
+                    DateTime temp = start;
+                    start = end;
+                    end = temp;
+                }
+                else
+                {
+                    end = new DateTime(date.Year, date.Month, date.Day+1, endTime.Hour, endTime.Minute, endTime.Second);
+                }
+            }
+
 
             TimeSpan span = end - start;
             var minutes = (int)span.TotalMinutes;
@@ -176,7 +196,8 @@ namespace TimerWinForms
                 {
                     DateTimeEnd = end,
                     MinutesTime = minutes == 0 ? 1 : minutes,
-                    Description = descriptionTextBox.Text
+                    Description = descriptionTextBox.Text,
+                    UserId = userId
                 };
 
                 db.Times.Add(time1);

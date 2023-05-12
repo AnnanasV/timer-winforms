@@ -33,9 +33,10 @@ namespace TimerWinForms
                             Password = registerPassTextBox.Text
                         };
 
-                        UserId = user.Id;
                         db.Users.Add(user);
                         db.SaveChanges();
+
+                        this.UserId = user.Id;
                     }
                 } //dispose
 
@@ -59,7 +60,8 @@ namespace TimerWinForms
                         return;
                     }
                     UserId = users[0].Id;
-                }
+                } // dispose
+
                 DeleteRegisterObjects();
                 AddTimerObjects();
                 Text = "Timer";
@@ -111,7 +113,8 @@ namespace TimerWinForms
         {
             if (e.KeyCode == Keys.Enter)
             {
-                registerButton_Click(sender, e);
+                registerPassTextBox.Focus();
+                e.Handled = true;
             }
         }
 
@@ -119,7 +122,8 @@ namespace TimerWinForms
         {
             if (e.KeyCode == Keys.Enter)
             {
-                logInButton_Click(sender, e);
+                logInPassTextBox.Focus();
+                e.Handled = true;
             }
         }
 
@@ -145,7 +149,8 @@ namespace TimerWinForms
                     {
                         DateTimeEnd = Convert.ToDateTime(endTime.Text),
                         MinutesTime = minutes == 0 ? 1 : minutes,
-                        Description = descriptionTextBox.Text
+                        Description = descriptionTextBox.Text,
+                        UserId = this.UserId
                     };
 
                     db.Times.Add(time1);
@@ -153,7 +158,7 @@ namespace TimerWinForms
                     MessageBox.Show($"{time1.MinutesTime} minutes was added to DB!", "Successfully");
                 }
             }
-            catch (System.FormatException)
+            catch (FormatException)
             {
                 MessageBox.Show("Please, track your time or use button 'CREATE'", "ERROR");
             }
@@ -176,13 +181,13 @@ namespace TimerWinForms
 
         private void visualize_Click(object sender, EventArgs e)
         {
-            Form2 form2 = new Form2();
+            Form2 form2 = new Form2(UserId);
             form2.Show();
         }
 
         private void create_Click(object sender, EventArgs e)
         {
-            FormCreate frmCreate = new FormCreate();
+            FormCreate frmCreate = new FormCreate(UserId);
             frmCreate.Show();
         }
 
